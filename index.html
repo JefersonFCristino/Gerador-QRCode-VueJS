@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.min.js"></script>
+    <script src="js/qrious.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <title>Gerador de QRCode</title>
+</head>
+
+<body>
+
+    <div id="app">
+        <h1 class="titulo">{{ title }}</h1>
+
+        <p>Gere um QRCode com o seu texto!</p>
+
+        <p>Para fazer o teste basta baixar um leitor de QRCode em seu Celular no Google Play ou salvar a imagem e jogar em um leitor de QRCode online :)</p>
+        <!-- <div>
+            <input type="text" size="25" placeholder="Digite para gerar..." :value="text" @input="onData">
+        </div> -->
+
+        <div>
+            <input type="text" size="25" placeholder="Digite para gerar..." v-model="text">
+        </div>
+
+        <div v-if="text" class="output">
+            <img :src="newQRCode" alt="QRCode">
+        </div>
+    </div>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                title: 'Gerador QRCode',
+                text: '',
+                qrcode: new QRious({ size: 300 })
+            },
+            computed: {
+                newQRCode() {
+                    this.qrcode.value = this.text
+                    return this.qrcode.toDataURL()
+                }
+            },
+            // methods: {
+            //     onData(event) {
+            //         this.text = event.target.value
+            //     }
+            // }
+        })
+        
+    </script>
+</body>
+
+</html>
